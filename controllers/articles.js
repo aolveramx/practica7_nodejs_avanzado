@@ -1,3 +1,5 @@
+const Article = require('../models/Article')
+
 /**
  * @desc Get all articles
  * @route GET /api/v1/articles
@@ -21,8 +23,17 @@ exports.getArticle = (req, res, next) => {
  * @route POST /api/v1/articles
  * @access Private
  */
-exports.createArticle = (req, res, next) => {
-  res.status(200).json({ success: true, msg: 'Create new article' })
+exports.createArticle = async (req, res, next) => {
+  try {
+    const article = await Article.create(req.body)
+
+    res.status(201).json({ 
+      success: true, 
+      data: article 
+    })
+  } catch (err) {
+    res.status(400).json({ success: false })
+  }
 }
 
 /**
