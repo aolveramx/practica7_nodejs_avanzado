@@ -1,0 +1,39 @@
+[
+  {
+    "_id": "5d713995b721c3bb38c1f5d0",
+		"user": "5d7a514b5d2c12c7449be045",
+    "name": "Xbox One",
+    "operation": true,
+    "price": "500",
+    "image": "no-image.jpg",
+    "tags": ["lifeStyle"]
+  },
+  {
+    "_id": "5d713a66ec8f2b88b8f830b8",
+		"user": "5d7a514b5d2c12c7449be045",
+    "name": "iPhone 12",
+    "operation": false,
+    "price": "1000",
+    "image": "no-image.jpg",
+    "tags": ["mobile"]
+  },
+  {
+    "_id": "5d725a037b292f5f8ceff787",
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "Macbook Air M1 Silicon",
+    "operation": true,
+    "price": "1200",
+    "image": "no-image.jpg",
+    "tags": ["work"]
+  },
+  {
+    "_id": "5d725a1b7b292f5f8ceff788",
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "Tesla Model X",
+    "operation": false,
+    "price": "35000",
+    "image": "no-image.jpg",
+    "tags": ["motor"]
+  },
+
+]
