@@ -5,8 +5,17 @@ const Article = require('../models/Article')
  * @route GET /api/v1/articles
  * @access Public
  */
-exports.getArticles = (req, res, next) => {
-  res.status(200).json({ success: true, msg: 'Show all articles' })
+exports.getArticles = async (req, res, next) => {
+  try {
+    const articles = await Article.find()
+
+    res.status(200).json({
+      success: true,
+      data: articles
+    })
+  } catch (err) {
+    res.status(400).json({ success: false })
+  }
 }
 
 /**
@@ -14,8 +23,21 @@ exports.getArticles = (req, res, next) => {
  * @route GET /api/v1/articles/:id
  * @access Public
  */
-exports.getArticle = (req, res, next) => {
-  res.status(200).json({ success: true, msg: `Show article ${req.params.id}` })
+exports.getArticle = async (req, res, next) => {
+  try {
+    const article = await Article.findById(req.params.id)
+
+    res.status(200).json({ 
+      success: true, 
+      data: article 
+    })
+
+    if(!article) {
+      return res.status(400).json({ success: false })
+    }
+  } catch (err) {
+    res.status(400).json({ success: false })
+  }
 }
 
 /**
