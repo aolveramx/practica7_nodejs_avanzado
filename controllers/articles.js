@@ -53,8 +53,9 @@ exports.createArticle = async (req, res, next) => {
       success: true, 
       data: article 
     })
+
   } catch (err) {
-    res.status(400).json({ success: false })
+    return res.status(400).json({ success: false })
   }
 }
 
@@ -63,10 +64,22 @@ exports.createArticle = async (req, res, next) => {
  * @route PUT /api/v1/article/:id
  * @access Private
  */
-exports.updateArticle = (req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `Update article ${req.params.id}` })
+exports.updateArticle = async (req, res, next) => {
+  try {
+    const article = await Article.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    })
+
+    if(!article) {
+      return res.status(400).json({ success: false })
+    }
+
+    res.status(200).json({ success: true, data: article })
+    
+  } catch (err) {
+    return res.status(400).json({ success: false })
+  }
 }
 
 /**
@@ -74,8 +87,17 @@ exports.updateArticle = (req, res, next) => {
  * @route DELETE /api/v1/articles/:id
  * @access Private
  */
-exports.deleteArticle = (req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `Delete article ${req.params.id}` })
+exports.deleteArticle = async (req, res, next) => {
+  try {
+    const article = await Article.findByIdAndDelete(req.params.id)
+
+    if(!article) {
+      return res.status(400).json({ success: false })
+    }
+
+    res.status(200).json({ success: true, data: {} })
+    
+  } catch (err) {
+    return res.status(400).json({ success: false })
+  }
 }
