@@ -1,3 +1,4 @@
+const ErrorResponse = require('../utils/errorResponse')
 const Article = require('../models/Article')
 
 /**
@@ -9,8 +10,11 @@ exports.getArticles = async (req, res, next) => {
   try {
     const articles = await Article.find()
 
-    res.status(200).json({
+    res
+      .status(200)
+      .json({
       success: true,
+      count: articles.length,
       data: articles
     })
   } catch (err) {
@@ -27,16 +31,21 @@ exports.getArticle = async (req, res, next) => {
   try {
     const article = await Article.findById(req.params.id)
 
+    if(!article) {
+      return next(
+        new ErrorResponse(`No encontramos el artículo con if ${req.params.id}`, 404)
+      )
+    }
+
     res.status(200).json({ 
       success: true, 
       data: article 
     })
 
-    if(!article) {
-      return res.status(400).json({ success: false })
-    }
   } catch (err) {
-    res.status(400).json({ success: false })
+    next(
+      new ErrorResponse(`No encontramos el artículo con if ${req.params.id}`, 404)
+    )
   }
 }
 
