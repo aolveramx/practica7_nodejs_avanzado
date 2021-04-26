@@ -8,7 +8,35 @@ const Article = require('../models/Article')
  * @access Public
  */
 exports.getArticles = asyncHandler(async (req, res, next) => {
-  const articles = await Article.find()
+  let query
+
+  const reqQuery = { ...req.query }
+
+  //Fields to exclude
+  const removeFields = ['sort']
+
+  //Loop over removeFields and delete them from reqQuery
+  removeFields.forEach(param => delete reqQuery[param])
+
+  //Create query String
+  let queryStr = JSON.stringify(reqQuery)
+
+  //Create operators ($gt, gte, ...) with Regex
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
+
+  //Finding resource
+  query = Article.find(JSON.parse(queryStr))
+
+  //sort
+  if(req.query.sort) {
+    const sortBy = req.query.sort.split(',').join(' ')
+    query = query.sort(sortBy)
+  } else {
+    query = query.sort('-createdAt')
+  }
+
+  //Executing query
+  const articles = await query
 
   res
     .status(200)
