@@ -1,3 +1,4 @@
+const path = require('path')
 const ErrorResponse = require('../utils/errorResponse')
 const asyncHandler = require('../middleware/async')
 const Article = require('../models/Article')
@@ -36,8 +37,8 @@ exports.getArticles = asyncHandler(async (req, res, next) => {
   }
 
   //Pagination
-  const page = parseInt(req.query.page, 10) || 4
-  const limit = parseInt(req.query.limit, 10) || 1
+  const page = parseInt(req.query.page, 10) || 1
+  const limit = parseInt(req.query.limit, 10) || 10
   const startIndex = (page -1) * limit
   const endIndex = page * limit
   const total = await Article.countDocuments()
@@ -84,7 +85,7 @@ exports.getArticle = asyncHandler(async (req, res, next) => {
 
   if(!article) {
     return next(
-      new ErrorResponse(`No encontramos el artículo con if ${req.params.id}`, 404)
+      new ErrorResponse(`No encontramos el artículo con id ${req.params.id}`, 404)
     )
   }
 
@@ -121,7 +122,7 @@ exports.updateArticle = asyncHandler(async (req, res, next) => {
 
   if(!article) {
     return next(
-      new ErrorResponse(`No encontramos el artículo con if ${req.params.id}`, 404)
+      new ErrorResponse(`No encontramos el artículo con id ${req.params.id}`, 404)
     )
   }
 
@@ -139,9 +140,64 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
 
   if(!article) {
     return next(
-      new ErrorResponse(`No encontramos el artículo con if ${req.params.id}`, 404)
+      new ErrorResponse(`No encontramos el artículo con id ${req.params.id}`, 404)
     )
   }
 
   res.status(200).json({ success: true, data: {} })
+})
+
+/**
+ * @desc Upload photo for article
+ * @route PUT /api/v1/articles/:id/photo
+ * @access Private
+ */
+ exports.articlePhotoUpload = asyncHandler(async (req, res, next) => {
+  const article = await Article.findByIdAndDelete(req.params.id)
+
+  if(!article) {
+    return next(
+      new ErrorResponse(`No encontramos el artículo con id ${req.params.id}`, 404)
+    )
+  }
+
+  if(!req.files) {
+    return next(
+      new ErrorResponse('Por favor carga una foto', 400)
+    )
+  }
+
+  const file = (req.files.file)
+
+  //Make shure the image is a photo
+  if(!file.mimetype.startsWith('image')) {
+    return next(
+      new ErrorResponse('Por favor carga un archivo de imagen', 400)
+    )
+  }
+
+  //Check filesize
+  if(file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(`Por favor carga un archivo de imagen menor a ${process.env.MAX_FILE_UPLOAD}`, 400)
+    )
+  }
+
+  //Create custom filename
+  file.name = `photo_${article._id}${path.parse(file.name).ext}`
+
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
+    if(err) {
+      console.error(err)
+      return next(
+        new ErrorResponse('Error del servidor al procesar tu archivo', 500)
+      )
+    }
+    await Article.findByIdAndUpdate(req.params.id, { photo: file.name })
+
+    res.status(200).json({
+      success: true,
+      data: file.name
+    })
+  })
 })

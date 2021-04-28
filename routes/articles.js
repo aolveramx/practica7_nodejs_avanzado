@@ -5,8 +5,11 @@ const {
   createArticle,
   updateArticle,
   deleteArticle,
+  articlePhotoUpload
 } = require('../controllers/articles')
 const router = express.Router()
+
+router.route('/:id/photo').put(articlePhotoUpload)
 
 router
   .route('/')

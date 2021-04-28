@@ -1,6 +1,5 @@
 [
   {
-    "_id": "5d713995b721c3bb38c1f5d0",
 		"user": "5d7a514b5d2c12c7449be045",
     "name": "Xbox One",
     "operation": true,
@@ -9,16 +8,14 @@
     "tags": ["lifeStyle"]
   },
   {
-    "_id": "5d713a66ec8f2b88b8f830b8",
 		"user": "5d7a514b5d2c12c7449be045",
     "name": "iPhone 12",
     "operation": false,
     "price": "1000",
     "image": "no-image.jpg",
-    "tags": ["mobile"]
+    "tags": ["mobile", "work"]
   },
   {
-    "_id": "5d725a037b292f5f8ceff787",
 		"user": "5d7a514b5d2c12c7449be046",
     "name": "Macbook Air M1 Silicon",
     "operation": true,
@@ -27,12 +24,76 @@
     "tags": ["work"]
   },
   {
-    "_id": "5d725a1b7b292f5f8ceff788",
 		"user": "5d7a514b5d2c12c7449be046",
     "name": "Tesla Model X",
     "operation": false,
     "price": "35000",
     "image": "no-image.jpg",
     "tags": ["motor"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be045",
+    "name": "Sony PlayStation 5",
+    "operation": true,
+    "price": "900",
+    "image": "no-image.jpg",
+    "tags": ["lifeStyle"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "Google Pixel Earbuds",
+    "operation": false,
+    "price": "179",
+    "image": "no-image.jpg",
+    "tags": ["mobile"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "New England Patriots NFL Jersey M",
+    "operation": false,
+    "price": "31",
+    "image": "no-image.jpg",
+    "tags": ["lifeStyle"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "Ford Mustang 1966 Convertible",
+    "operation": true,
+    "price": "105000",
+    "image": "no-image.jpg",
+    "tags": ["motor", "mobility"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "Orbea Bycicle M20 2019",
+    "operation": false,
+    "price": "35000",
+    "image": "no-image.jpg",
+    "tags": ["mobility"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "Dean Electric Guitar Dimebag",
+    "operation": true,
+    "price": "799",
+    "image": "no-image.jpg",
+    "tags": ["musical", "lifeStyle"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "ESP LTD Kh-202 Signature Kirk Hammett",
+    "operation": false,
+    "price": "5358",
+    "image": "no-image.jpg",
+    "tags": ["musical", "lifeStyle"]
+  },
+  {
+		"user": "5d7a514b5d2c12c7449be046",
+    "name": "Xioami Electric Scooter Mi365",
+    "operation": true,
+    "price": "499",
+    "image": "no-image.jpg",
+    "tags": ["mobility", "motor"]
   }
+
 ]

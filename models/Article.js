@@ -25,7 +25,9 @@ const ArticleSchema = new mongoose.Schema({
       'lifeStyle',
       'mobile',
       'work',
-      'motor'
+      'motor',
+      'mobility',
+      'musical'
     ],
     index: true,
   },
