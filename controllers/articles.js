@@ -9,70 +9,9 @@ const Article = require('../models/Article')
  * @access Public
  */
 exports.getArticles = asyncHandler(async (req, res, next) => {
-  let query
-
-  const reqQuery = { ...req.query }
-
-  //Fields to exclude
-  const removeFields = ['sort', 'page', 'limit']
-
-  //Loop over removeFields and delete them from reqQuery
-  removeFields.forEach(param => delete reqQuery[param])
-
-  //Create query String
-  let queryStr = JSON.stringify(reqQuery)
-
-  //Create operators ($gt, gte, ...) with Regex
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
-
-  //Finding resource
-  query = Article.find(JSON.parse(queryStr))
-
-  //sort
-  if(req.query.sort) {
-    const sortBy = req.query.sort.split(',').join(' ')
-    query = query.sort(sortBy)
-  } else {
-    query = query.sort('-createdAt')
-  }
-
-  //Pagination
-  const page = parseInt(req.query.page, 10) || 1
-  const limit = parseInt(req.query.limit, 10) || 10
-  const startIndex = (page -1) * limit
-  const endIndex = page * limit
-  const total = await Article.countDocuments()
-
-  query = query.skip(startIndex).limit(limit)
-
-  //Executing query
-  const articles = await query
-
-  //Pagination result
-  const pagination = {}
-
-  if(endIndex < total) {
-    pagination.next = {
-      page: page + 1,
-      limit
-    }
-  }
-
-  if(startIndex > 0) {
-    pagination.prev = {
-      page: page -1,
-      limit
-    }
-  }
-
   res
     .status(200)
-    .json({
-    success: true,
-    count: articles.length,
-    pagination,
-    data: articles
-  })
+    .json(res.advancedResults)
 })
 
 /**

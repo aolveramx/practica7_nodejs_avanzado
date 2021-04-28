@@ -9,11 +9,14 @@ const {
 } = require('../controllers/articles')
 const router = express.Router()
 
+const Articles = require('../models/Article')
+const advancedResults = require('../middleware/advancedResults')
+
 router.route('/:id/photo').put(articlePhotoUpload)
 
 router
   .route('/')
-  .get(getArticles)
+  .get(advancedResults(Articles), getArticles)
   .post(createArticle)
 
 router
