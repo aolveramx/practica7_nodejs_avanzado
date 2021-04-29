@@ -15,6 +15,7 @@ connectDB()
 
 //Route files
 const articles = require('./routes/articles')
+const auth = require('./routes/auth')
 
 //Init express
 const app = express()
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //Mount routers
 app.use('/api/v1/articles', articles)
+app.use('/api/v1/auth', auth)
 
 //Init error middleware
 app.use(errorHandler)
