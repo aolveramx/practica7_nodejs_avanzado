@@ -60,10 +60,7 @@ exports.createArticle = asyncHandler(async (req, res, next) => {
  * @access Private
  */
 exports.updateArticle = asyncHandler(async (req, res, next) => {
-  const article = await Article.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  })
+  let article = await Article.findById(req.params.id)
 
   if(!article) {
     return next(
@@ -71,8 +68,19 @@ exports.updateArticle = asyncHandler(async (req, res, next) => {
     )
   }
 
+  //Make sure user is article owner
+  if (article.user.toString() !== req.user.id) {
+    return next(
+      new ErrorResponse(`El usuario ${req.params.id} no esta autorizado para actualizar este artículo `, 401)
+    )
+  }
+
+  article = await Article.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  })
+
   res.status(200).json({ success: true, data: article })
-  
 })
 
 /**
@@ -89,6 +97,15 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
     )
   }
 
+  //Make sure user is article owner
+  if (article.user.toString() !== req.user.id) {
+    return next(
+      new ErrorResponse(`El usuario ${req.params.id} no esta autorizado para borrar este artículo `, 401)
+    )
+  }
+
+  article.remove()
+
   res.status(200).json({ success: true, data: {} })
 })
 
@@ -103,6 +120,13 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
   if(!article) {
     return next(
       new ErrorResponse(`No encontramos el artículo con id ${req.params.id}`, 404)
+    )
+  }
+
+  //Make sure user is article owner
+  if (article.user.toString() !== req.user.id) {
+    return next(
+      new ErrorResponse(`El usuario ${req.params.id} no esta autorizado para actualizar este artículo `, 401)
     )
   }
 
