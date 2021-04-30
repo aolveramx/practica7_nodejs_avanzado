@@ -40,6 +40,12 @@ exports.getArticle = asyncHandler(async (req, res, next) => {
  * @access Private
  */
 exports.createArticle = asyncHandler(async (req, res, next) => {
+  //Add user to req.body
+  req.body.user = req.user.id
+
+  //Check for published article
+  const publishedArticle = await Article.findOne({ user: req.user.id })
+
   const article = await Article.create(req.body)
 
   res.status(201).json({ 
