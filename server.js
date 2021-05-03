@@ -64,6 +64,18 @@ app.use(hpp())
 //Enable CORS
 app.use(cors())
 
+//Register view engine
+app.set('view engine', 'ejs')
+
+//Load assets for Website
+app.use('/css', express.static(path.resolve(__dirname, 'assets/css')))
+app.use('/img', express.static(path.resolve(__dirname, 'assets/img')))
+app.use('/js', express.static(path.resolve(__dirname, 'assets/js')))
+app.use('/favicon', express.static(path.resolve(__dirname, 'assets/favicon')))
+
+//Website routes
+app.get('/', (req, res) => { res.render('index', { title: 'WallaFake API' }) })
+
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')))
 
