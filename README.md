@@ -1,4 +1,5 @@
-#WallaFake 
+#WallaFake
+
 > práctica #7 NodeJS Avanzado
 
 #### Introducción
@@ -28,9 +29,9 @@ Renombra el archivo _config.example.env_ como **config.env**
 
 #### Configuración Básica
 
-* Insertar tu URI de del _Cluster_ que has creado en mongoDB.
-* Es recomendable que agregues una clave a la variable JWT_Secret.
-* Ingresa tus credenciales de mailtrap.io para realizar el envío del token por si "olvidaste tu contraseña".
+- Insertar tu URI de del _Cluster_ que has creado en mongoDB.
+- Es recomendable que agregues una clave a la variable JWT_Secret.
+- Ingresa tus credenciales de mailtrap.io para realizar el envío del token por si "olvidaste tu contraseña".
 
 #### Configuración Avanzada
 
@@ -43,6 +44,7 @@ La aplicación cuenta con un archivo **seeder.js** el cual es ejecutable con el 
 ```
 node seeder.js -i
 ```
+
 Para importar la base de datos pre-cargada para comenzar a usar la aplicación.
 
 También puedes ejecutar el sigueinte comando para vaciar la base de datos en cualquier comento:
@@ -55,4 +57,12 @@ node seeder.js -i
 
 ```
 npm run dev
+```
+
+#### Modo Cluster
+
+Puedes correr el siguiente comando para arrancar mas instancias de WallaFake API, según el número de CPU cores que tenga tu equipo.
+
+```
+npm run cluster
 ```
