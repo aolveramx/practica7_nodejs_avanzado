@@ -5,11 +5,12 @@
           Menu
           <i class="fas fa-bars"></i>
       </button>
+      <% getLocales().forEach(locale => { %>
+        <a href='/change-locale/<%= locale %>' ><%= locale %> &nbsp;
+      <% }) %>
       <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#english">English</a></li>
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#spanish">Spanish</a></li>
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#articles">Example</a></li>
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#articles"><%= __('Example')%></a></li>
           </ul>
       </div>
   </div>

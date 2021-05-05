@@ -11,6 +11,7 @@ const xss = require('xss-clean')
 const rateLimit = require('express-rate-limit')
 const hpp = require('hpp')
 const cors = require('cors')
+const i18n = require('./utils/i18nConfigure')
 const errorHandler = require('./middleware/error')
 const connectDB = require('./config/db')
 
@@ -32,6 +33,13 @@ app.use(express.json())
 
 //Cookie parser
 app.use(cookieParser())
+
+//Init i18n
+app.use(i18n.init)
+
+//Website routes
+app.get('/', (req, res) => { res.render('index', { title: 'WallaFake API' }) })
+app.use('/change-locale', require('./routes/change-locale'))
 
 //Dev loggin middleware
 if(process.env.NODE_ENV === 'development') {
@@ -72,9 +80,6 @@ app.use('/css', express.static(path.resolve(__dirname, 'assets/css')))
 app.use('/img', express.static(path.resolve(__dirname, 'assets/img')))
 app.use('/js', express.static(path.resolve(__dirname, 'assets/js')))
 app.use('/favicon', express.static(path.resolve(__dirname, 'assets/favicon')))
-
-//Website routes
-app.get('/', (req, res) => { res.render('index', { title: 'WallaFake API' }) })
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')))
