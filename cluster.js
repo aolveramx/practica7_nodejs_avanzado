@@ -16,7 +16,6 @@ const connectDB = require('./config/db')
 const os = require('os')
 const cluster = require('cluster')
 
-
 //Load env variables
 dotenv.config({ path: './config/config.env' })
 
@@ -57,6 +56,13 @@ if (cluster.isMaster) {
   //Cookie parser
   app.use(cookieParser())
 
+  //Init i18n
+  app.use(i18n.init)
+
+  //Website routes
+  app.get('/', (req, res) => { res.render('index', { title: 'WallaFake API' }) })
+  app.use('/change-locale', require('./routes/change-locale'))
+
   //Dev loggin middleware
   if(process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
@@ -96,9 +102,6 @@ if (cluster.isMaster) {
   app.use('/img', express.static(path.resolve(__dirname, 'assets/img')))
   app.use('/js', express.static(path.resolve(__dirname, 'assets/js')))
   app.use('/favicon', express.static(path.resolve(__dirname, 'assets/favicon')))
-
-  //Website routes
-  app.get('/', (req, res) => { res.render('index', { title: 'WallaFake API' }) })
 
   //Set static folder
   app.use(express.static(path.join(__dirname, 'public')))

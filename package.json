@@ -6,7 +6,8 @@
   "scripts": {
     "start": "NODE_ENV=production node server",
     "dev": "nodemon server",
-    "cluster": "node cluster"
+    "cluster": "node cluster",
+    "thumbnail": "node thumbnail.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "helmet": "^4.5.0",
     "hpp": "^0.2.3",
     "i18n": "^0.13.2",
+    "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.5",
     "morgan": "^1.10.0",

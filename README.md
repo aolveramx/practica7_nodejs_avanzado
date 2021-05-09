@@ -21,7 +21,7 @@ Una vez cumplidos los requisitos anterires realiza un **git clone** del reposito
 
 Instala las dependencias
 
-```
+```sh
 npm i
 ```
 
@@ -41,7 +41,7 @@ En el archivo **config.env** puedes modificar todas las variables de entorno par
 
 La aplicación cuenta con un archivo **seeder.js** el cual es ejecutable con el siguiente comando:
 
-```
+```sh
 node seeder.js -i
 ```
 
@@ -49,13 +49,13 @@ Para importar la base de datos pre-cargada para comenzar a usar la aplicación.
 
 También puedes ejecutar el sigueinte comando para vaciar la base de datos en cualquier comento:
 
-```
+```sh
 node seeder.js -i
 ```
 
 #### Comienza a usar WallaFake
 
-```
+```sh
 npm run dev
 ```
 
@@ -63,6 +63,14 @@ npm run dev
 
 Puedes correr el siguiente comando para arrancar mas instancias de WallaFake API, según el número de CPU cores que tenga tu equipo.
 
-```
+```sh
 npm run cluster
+```
+
+#### Microservicio imagen miniatura (thumbnail)
+
+La aplicación cuenta con un microservicio para convertir las imagenes de los anuncios en imagenes miniatura (thumbnails) de 100x100 px, con el siguiente comando:
+
+```sh
+npm run thumbnail
 ```
