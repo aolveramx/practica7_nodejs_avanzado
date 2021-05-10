@@ -39,7 +39,12 @@ const ArticleSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     require: true
+  },
+},
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
-})
+)
 
 module.exports = mongoose.model('Article', ArticleSchema)

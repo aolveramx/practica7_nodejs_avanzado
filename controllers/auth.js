@@ -54,7 +54,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 
 /**
  * @desc   Get current logged in user
- * @route  POST /api/v1/auth/me
+ * @route  GET /api/v1/auth/me
  * @access Private
  */
 exports.getMe = asyncHandler(async (req, res, next) => {
@@ -149,11 +149,6 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 
     return next(new ErrorResponse('No se pudo enviar el correo electrónico', 500))
   }
-
-  res.status(200).json({
-    success: true,
-    data: user
-  })
 })
 
 /**

@@ -104,7 +104,7 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
     )
   }
 
-  article.remove()
+  await article.remove()
 
   res.status(200).json({ success: true, data: {} })
 })
